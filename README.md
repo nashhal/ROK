@@ -1,41 +1,34 @@
-# ROCK | Commerce & Operations Platform
+# ROCK — Commerce Operations Demo
 
-This repository contains the ROCK standalone operations-platform demo. It is kept separate from the existing production storefront repository `nashhal/ROCK`.
+A standalone, Arabic-first operations dashboard for exploring the ROCK workflow. This repository is separate from the existing storefront repository at `nashhal/ROCK`.
 
-## Current package scope
+## What's in this commit
 
-- Arabic-first RTL interface with an English toggle
-- Store, administrator, and courier workspaces
-- Demo workflows for catalog, orders, stock, purchasing, barcodes, customers, payments, shipping, returns, promotions, reports, invoices, notifications, audit, security, and settings
-- Local browser persistence for demonstration only
+- `index.html`: responsive RTL/LTR dashboard with Arabic/English toggle.
+- Overview, catalog, orders, inventory, purchasing, couriers, customers, payments, reports, invoices, promotions, support, audit-log, and settings screens.
+- Demo product and order records to make the interface explorable.
+- Local-only product/order editing, stock adjustments, status updates, CSV export, JSON export/import, and print-to-PDF demo receipts.
 
-## Important: not production-ready
+## Try it
 
-The current prototype uses browser `localStorage` and seeded example records. It does **not** include a production backend, shared employee accounts, server-side permission enforcement, MySQL migrations, OTP delivery, real SMS/WhatsApp/email, payment verification, courier integrations, or verified remote backups. Do not enter real customer, payment, or confidential business data.
-
-A static GitHub Pages deployment is not a substitute for a secure server-side application. Before real operations, implement and test the API, database, authentication, role-based access control, audit trail, secrets management, integrations, backup/restore, privacy controls, and end-to-end security.
-
-## Project layout
-
-- `prototype/`: isolated browser-only operations demo.
-- `products.js`: storefront product catalogue snapshot when included in the package.
-- `assets/`: brand and product media when included in the package.
-
-## Running locally
-
-Serve the repository root using a local static server, then open `/prototype/`. For example:
+Open `index.html` in a current browser, or serve this directory:
 
 ```bash
 python -m http.server 8000
 ```
 
-Open `http://localhost:8000/prototype/`.
+Then visit `http://localhost:8000/`.
 
-## Production checklist
+## Important limitations
 
-- [ ] Build the server-side API and database migrations
-- [ ] Enforce authentication and role permissions on the server
-- [ ] Integrate real payment, notification, and shipping providers
-- [ ] Add validated backup and restore, monitoring, and audit controls
-- [ ] Run accessibility, browser, integration, and security tests
-- [ ] Replace demo data and complete acceptance testing before launch
+This is a **front-end prototype**, not a deployable production commerce system. All state is saved in the current browser's `localStorage`; employees do not share data between devices. Authentication, server-side roles, MySQL, OTP, actual messages, payment capture, courier integrations, tax-compliant invoices, and remote backups are not implemented. Seeded records are examples; listed amounts are not actual revenue or money collected.
+
+Do not enter real customer, payment, or business-sensitive data. Do not use this demo as the live order-management system.
+
+## Before production
+
+Build the server-side API and database, enforce authentication and role permissions on the server, set up real integrations and secrets management, implement verified backup/restore and monitoring, and run security, accessibility, integration, and acceptance tests. Static hosting alone does not provide these features.
+
+## Current catalogue note
+
+This dashboard uses a small sample catalogue for interface testing. It does **not** replace the 41-product store catalogue or include the product-image library from the local review package. Those assets must be integrated in the production implementation after the backend and deployment target are finalized.
