@@ -22,18 +22,8 @@ jobs:
         with:
           node-version: 22
 
-      - name: Check embedded JavaScript syntax
-        run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          import re
-          html = Path("index.html").read_text(encoding="utf-8")
-          scripts = re.findall(r"<script(?:\s[^>]*)?>(.*?)</script>", html, flags=re.I | re.S)
-          if len(scripts) != 1:
-              raise SystemExit(f"Expected one inline script, found {len(scripts)}")
-          Path("/tmp/rock-inline.js").write_text(scripts[0], encoding="utf-8")
-          PY
-          node --check /tmp/rock-inline.js
+      - name: Check application JavaScript syntax
+        run: node --check assets/app.js
 
       - name: Check required interface landmarks
         run: |
@@ -49,5 +39,8 @@ jobs:
           missing = [item for item in required if item not in source]
           if missing:
               raise SystemExit("Missing interface landmarks: " + ", ".join(missing))
-          print("HTML parsed; required interface landmarks found.")
+          for asset in ("assets/app.css", "assets/app.js"):
+              if not Path(asset).is_file():
+                  raise SystemExit("Missing asset: " + asset)
+          print("HTML parsed; interface landmarks and static assets found.")
           PY
